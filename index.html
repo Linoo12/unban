@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>LINOO UNBAN</title>
+  <link rel="icon" href="https://files.catbox.moe/j4ylnx.jpg" />
+
+  <!-- Manifest untuk Android WebAPK / Chrome -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="LINOO UNBAN">
+  <link rel="apple-touch-icon" href="https://files.catbox.moe/j4ylnx.jpg">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #000000;
+      --card-bg: rgba(10, 10, 10, 0.9);
+      --text-color: #ffffff;
+      --accent-red: #ff0000;
+      --border-color: #333333;
+      --input-bg: rgba(20, 20, 20, 0.8);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      background-image: 
+        url('https://files.catbox.moe/j4ylnx.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--accent-red);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #999;
+      font-weight: 400;
+    }
+
+    /* Card */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 12px 15px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-color);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent-red);
+      box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: #666;
+    }
+
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 12px;
+      cursor: pointer;
+    }
+
+    .form-select option {
+      background: #000;
+      color: #fff;
+      padding: 10px;
+    }
+
+    /* Button */
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent-red);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      background: #ff3333;
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* Status */
+    .status {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding-top: 20px;
+      color: #666;
+      font-size: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      .title {
+        font-size: 24px;
+      }
+      
+      .logo {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Container -->
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <img src="https://files.catbox.moe/j4ylnx.jpg" alt="LINOO UNBAN Logo">
+      </div>
+      <h1 class="title">LINOO UNBAN</h1>
+      <p class="subtitle">WhatsApp Unban Service</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card">
+      
+      <!-- Phone Number -->
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input 
+          type="tel" 
+          id="phoneNumber" 
+          class="form-input" 
+          placeholder="+628xxx"
+          inputmode="tel"
+        >
+      </div>
+
+      <!-- Ban Type -->
+      <div class="form-group">
+        <label class="form-label">Ban Type</label>
+        <select id="banType" class="form-select">
+          <option value="">-- Select Ban Type --</option>
+          <option value="permafresh">Permanent Fresh</option>
+          <option value="spam">Spam Ban</option>
+          <option value="hard">Hard Permanent</option>
+          <option value="week">7 Days Ban</option>
+          <option value="stone">Stone Ban</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <button id="submitBtn" class="btn">
+        <i class="fas fa-paper-plane"></i>
+        SUBMIT APPEAL
+      </button>
+
+      <!-- Status -->
+      <div id="status" class="status">
+        Enter your WhatsApp number and select ban type
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>© 1945-2026 LINOO UNBAN • All Rights Reserved</p>
+    </div>
+
+  </div>
+
+<script>
+  // DOM Elements
+  const phoneInput = document.getElementById('phoneNumber');
+  const banTypeSelect = document.getElementById('banType');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusDiv = document.getElementById('status');
+
+  // Email Templates
+  const emailTemplates = {
+    permafresh: {
+      to: 'support@support.whatsapp.com',
+      subject: 'WhatsApp Ban Appeal - Permanent Fresh',
+      body: (phone) => `Dear WhatsApp Support Team,
+
+My WhatsApp account has been permanently banned without any clear reason. I believe this is a system error or misunderstanding.
+
+Phone number: ${phone}
+
+I have always followed WhatsApp's terms of service and used the app responsibly. Please review my account and lift the ban.
+
+Thank you for your attention.
+
+Best regards,
+WhatsApp User`
+    },
+    spam: {
+      to: 'support@support.whatsapp.com',
+      subject: 'Appeal for Spam Ban Removal',
+      body: (phone) => `Hello WhatsApp Team,
+
+My account ${phone} has been banned due to alleged spam activities. This is incorrect as I only use WhatsApp for personal communication with friends and family.
+
+Please review my account history. I have never engaged in spamming or bulk messaging. I believe this is an automated system error.
+
+Kindly restore my account access.
+
+Sincerely,
+Account Owner`
+    },
+hard: {
+      to: 'support@support.whatsapp.com',
+      subject: 'Hard Permanent Ban Appeal',
+      body: (phone) => `To WhatsApp Support,
+
+إلى إدارة واتساب المحترمة،
+الموضوع: استئناف ضد حظر دائم على الحساب – خطأ في النظام
+
+أرجو منكم النظر بعين الاعتبار في هذه الرسالة العاجلة. لقد تم حظر حسابي على واتساب المرتبط بالرقم ${phone} بشكل دائم، وأعتقد جازماً أن هذا الحظر ناتج عن خطأ في النظام الآلي.
+
+أنا مستخدم مخلص لواتساب لسنوات عديدة، وقد التزمت دائماً بإرشادات المجتمع وقواعد الاستخدام. لم أشارك في أي نشاط ينتهك الشروط، ولم يصدر عني أي سلوك قد يؤدي إلى حظر بهذه القسوة.
+
+يحتوي حسابي على اتصالات مهمة للغاية تتعلق بالعمل والأسرة والضروريات اليومية. فقدان الوصول إليه يسبب لي مشاكل كبيرة على المستويين الشخصي والمهني.
+
+لذلك أتوسل إليكم:
+
+· مراجعة سجل نشاط الحساب المرتبط بالرقم ${phone} بعناية.
+· التحقق من عدم وجود خطأ تقني أو بلاغ خاطئ تسبب في هذا الحظر.
+· إعادة النظر في قرار الحظر الدائم وإعادة تفعيل حسابي بأسرع وقت ممكن.
+
+أثق في عدالتكم وفريق الدعم المتميز. أرجو المساعدة في حل هذه المشكلة لأنني أعتمد على واتساب في جوانب حيوية من حياتي.
+
+شاكراً لكم حسن اهتمامكم وتعاونكم.
+
+وتفضلوا بقبول فائق الاحترام،
+مستخدم مهتم`
+    },
+    week: {
+      to: 'support@support.whatsapp.com',
+      subject: '7-Day Ban Appeal Request',
+      body: (phone) => `Dear Support,
+
+My WhatsApp account is currently under a 7-day ban. However, I need to access my account urgently for important matters.
+
+Phone: ${phone}
+
+I understand the rules and will be more careful in the future. Could you please consider reducing or removing this ban?
+
+Thank you for understanding.
+
+Regards,
+User`
+    },
+    stone: {
+      to: 'support@support.whatsapp.com',
+      subject: 'Stone Ban Appeal - Account Recovery',
+      body: (phone) => `Hello,
+
+My WhatsApp account ${phone} has been completely restricted (stone ban). I believe this is an error as I haven't violated any terms.
+
+I use WhatsApp for essential communication with family and for work purposes. Please review my account and restore access.
+
+Thank you for your help.
+
+Sincerely,
+Account Holder`
+    }
+  };
+
+  // Utility Functions
+  function normalizePhoneNumber(phone) {
+    if (!phone) return '';
+    let normalized = phone.trim().replace(/\s+/g, '');
+    
+    if (/^0[0-9]+$/.test(normalized)) {
+      normalized = '62' + normalized.slice(1);
+    }
+    
+    if (!normalized.startsWith('+')) {
+      normalized = '+' + normalized;
+    }
+    
+    return normalized;
+  }
+
+  function updateStatus(message, type = 'info') {
+    statusDiv.textContent = message;
+    
+    if (type === 'error') {
+      statusDiv.style.color = '#ff6b6b';
+      statusDiv.style.borderColor = '#ff6b6b';
+    } else if (type === 'success') {
+      statusDiv.style.color = '#6bff6b';
+      statusDiv.style.borderColor = '#6bff6b';
+    } else {
+      statusDiv.style.color = '#ffffff';
+      statusDiv.style.borderColor = '#333333';
+    }
+  }
+
+  function openEmailApp(emailData) {
+    const { to, subject, body } = emailData;
+    
+    const mailtoUrl = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    window.location.href = mailtoUrl;
+    
+    setTimeout(() => {
+      if (!document.hidden) {
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(gmailUrl, '_blank');
+      }
+    }, 1000);
+  }
+
+  // Event Listeners
+  submitBtn.addEventListener('click', () => {
+    const phone = phoneInput.value.trim();
+    const banType = banTypeSelect.value;
+    
+    if (!phone) {
+      updateStatus('Please enter your WhatsApp number', 'error');
+      phoneInput.focus();
+      return;
+    }
+    
+    if (!banType) {
+      updateStatus('Please select ban type', 'error');
+      banTypeSelect.focus();
+      return;
+    }
+    
+    const normalizedPhone = normalizePhoneNumber(phone);
+    const phoneRegex = /^\+[1-9]\d{1,14}$/;
+    
+    if (!phoneRegex.test(normalizedPhone)) {
+      updateStatus('Invalid phone number format', 'error');
+      return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING...';
+    
+    updateStatus('Preparing appeal request...', 'info');
+    
+    setTimeout(() => {
+      try {
+        const template = emailTemplates[banType];
+        if (!template) {
+          throw new Error('Template not found');
+        }
+        
+        const emailData = {
+          to: template.to,
+          subject: template.subject,
+          body: template.body(normalizedPhone)
+        };
+        
+        updateStatus('Opening email app...', 'info');
+        
+        setTimeout(() => {
+          openEmailApp(emailData);
+          
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> SUBMIT APPEAL';
+            updateStatus('Appeal ready! Check your email app.', 'success');
+          }, 2000);
+          
+        }, 1000);
+        
+      } catch (error) {
+        console.error('Error:', error);
+        updateStatus('Error occurred. Please try again.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> SUBMIT APPEAL';
+      }
+    }, 1500);
+  });
+
+  // Phone number formatting
+  phoneInput.addEventListener('input', (e) => {
+    let value = e.target.value.replace(/\D/g, '');
+    
+    if (value.length > 0) {
+      if (!value.startsWith('62') && value.length <= 11) {
+        if (value.startsWith('0')) {
+          value = '62' + value.substring(1);
+        }
+      }
+      
+      // Format with spaces
+      let formatted = '+';
+      if (value.startsWith('62')) {
+        formatted += value.substring(0, 2);
+        value = value.substring(2);
+      }
+      
+      // Add spaces every 3-4 digits
+      let count = 0;
+      for (let i = 0; i < value.length; i++) {
+        if (count === 3 || count === 7 || count === 11) {
+          formatted += ' ';
+        }
+        formatted += value[i];
+        count++;
+      }
+      
+      e.target.value = formatted;
+    }
+  });
+
+  // Auto focus
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      phoneInput.focus();
+    }, 500);
+  });
+</script>
+</body>
+</html>
